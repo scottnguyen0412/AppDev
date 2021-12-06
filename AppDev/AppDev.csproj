@@ -173,9 +173,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112061051508_updatefirsttable.cs" />
-    <Compile Include="Migrations\202112061051508_updatefirsttable.Designer.cs">
-      <DependentUpon>202112061051508_updatefirsttable.cs</DependentUpon>
+    <Compile Include="Migrations\202112061102100_updateFirstTable.cs" />
+    <Compile Include="Migrations\202112061102100_updateFirstTable.Designer.cs">
+      <DependentUpon>202112061102100_updateFirstTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112061118447_UpdateFirstTable1.cs" />
+    <Compile Include="Migrations\202112061118447_UpdateFirstTable1.Designer.cs">
+      <DependentUpon>202112061118447_UpdateFirstTable1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -264,8 +268,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202112061051508_updatefirsttable.resx">
-      <DependentUpon>202112061051508_updatefirsttable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202112061102100_updateFirstTable.resx">
+      <DependentUpon>202112061102100_updateFirstTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112061118447_UpdateFirstTable1.resx">
+      <DependentUpon>202112061118447_UpdateFirstTable1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -21,7 +21,7 @@ namespace AppDev.Models
         public string Address { get; set; }
 
         [ForeignKey("User")]
-        public String TrainerId { get; set; }
+        public string TrainerId { get; set; }
         public ApplicationUser User { get; set; }
     }
 }

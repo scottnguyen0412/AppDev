@@ -9,6 +9,7 @@ namespace AppDev.Models
 {
     public class CourseCategory
     {
+        [Key]
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -16,6 +17,6 @@ namespace AppDev.Models
         [Required]
         [StringLength(255)]
         public string Description { get; set; }
-       
+        
     }
 }

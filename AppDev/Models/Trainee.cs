@@ -20,7 +20,7 @@ namespace AppDev.Models
         public string Education { get; set; }
 
         [ForeignKey("User")]
-        public String StaffId { get; set; }
+        public string TraineeId { get; set; }
         public ApplicationUser User { get; set; }
 
     }

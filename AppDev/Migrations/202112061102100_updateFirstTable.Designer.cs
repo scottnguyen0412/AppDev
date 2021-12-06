@@ -7,13 +7,13 @@ namespace AppDev.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class updatefirsttable : IMigrationMetadata
+    public sealed partial class updateFirstTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(updatefirsttable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(updateFirstTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "202112061051508_updatefirsttable"; }
+            get { return "202112061102100_updateFirstTable"; }
         }
         
         string IMigrationMetadata.Source
