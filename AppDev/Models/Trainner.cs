@@ -8,6 +8,7 @@ namespace AppDev.Models
 {
     public class Trainner
     {
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage ="Let's fill out the information")]
