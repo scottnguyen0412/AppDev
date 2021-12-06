@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -17,5 +18,10 @@ namespace AppDev.Models
         public int Age { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Education { get; set; }
+
+        [ForeignKey("User")]
+        public String StaffId { get; set; }
+        public ApplicationUser User { get; set; }
+
     }
 }
