@@ -185,6 +185,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\AssignTraineeToCourse.cs" />
+    <Compile Include="Models\AssignTrainerToCourse.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseCategory.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
