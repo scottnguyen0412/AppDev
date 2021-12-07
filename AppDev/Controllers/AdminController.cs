@@ -166,6 +166,19 @@ namespace AppDev.Controllers
             return View(StaffInDb);
         }
 
+        [HttpGet]
+        public ActionResult ChangePasswordForStaff()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangePasswordForStaffAsync(ChangingPasswordViewModel viewModel, string id)
+        {
+            
+        }
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)

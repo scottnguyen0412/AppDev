@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using AppDev.Models;
+using System.Security.Principal;
 
 namespace AppDev
 {
@@ -85,6 +86,11 @@ namespace AppDev
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
+        }
+
+        internal Task GetUserAsync(IPrincipal user)
+        {
+            throw new NotImplementedException();
         }
     }
 
