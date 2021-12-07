@@ -88,14 +88,49 @@ namespace AppDev.Controllers
                     await UserManager.AddToRoleAsync(user.Id, Roles.TrainingStaff);
                     _context.trainningStaffs.Add(staff);
                     _context.SaveChanges();
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("IndexForStaff", "Admin");
                 }
                 AddErrors(result);
             }
             // If we got this far, something failed, redisplay form
             return View(viewModel);
         }
-        
+        [HttpGet]
+        public ActionResult IndexForStaff()
+        {
+            var indexStaff = _context.trainningStaffs.ToList();
+            return View(indexStaff);
+        }
+        [HttpGet]
+        public ActionResult EditStaff(string id)
+        {
+            //SingleOrDefault return default value is 1 if the value is empty
+            var StaffinDb = _context.trainningStaffs.SingleOrDefault(s => s.StaffId == id);
+            if (StaffinDb == null)
+            {
+                return HttpNotFound();
+            }
+            return View();
+        }
+
+        //Get model from Form 
+        [HttpPost]
+        public ActionResult EditStaff(TrainningStaff staff)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(staff);
+            }
+            var StaffinDb = _context.trainningStaffs.SingleOrDefault(s => s.StaffId == staff.StaffId);
+            if(StaffinDb == null)
+            {
+                return HttpNotFound();
+            }
+            StaffinDb.FullName = staff.FullName;
+            StaffinDb.Age = staff.Age;
+            StaffinDb.Address = staff.Address;
+            return RedirectToAction(" ","Admin");
+        }
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)

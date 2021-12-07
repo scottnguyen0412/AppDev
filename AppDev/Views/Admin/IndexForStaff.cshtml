@@ -1,0 +1,46 @@
+﻿@model IEnumerable<AppDev.Models.TrainningStaff>
+@{
+    ViewBag.Title = "IndexForStaff";
+}
+
+<h2>The Main Page For Staff</h2>
+<div class="form-group">
+    @Html.ActionLink("Create a Staff", "CreateTrainingStaff", "Admin",
+        new { @class = "btn btn-primary" })
+
+</div>
+<table class="table">
+    <thead>
+        <!--List the whole inform in Model using foreach -->
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Address</th>
+            <th>Change Password</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.FullName</td>
+                <td>@items.Email</td>
+                <td>@items.Age</td>
+                <td>@items.Address</td>
+                <td>
+                    <!--Get id to change-->
+                    @Html.ActionLink("Change Password", "ChangePasswordForStaff", "Admin",
+                        new { id = items.StaffId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Edit", "EditStaff", "Admin",
+                        new { id = items.StaffId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "DeleteStaff", "Admin",
+                        new { id = items.StaffId }, new { @class = "btn btn-primary", onclick = "return confirm('Are you sure to delete?')"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
