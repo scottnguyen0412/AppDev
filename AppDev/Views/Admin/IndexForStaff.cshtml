@@ -17,9 +17,7 @@
             <th>Email</th>
             <th>Age</th>
             <th>Address</th>
-            <th>Change Password</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>Action</th>
         </tr>
 
     </thead>
@@ -32,13 +30,17 @@
                 <td>@items.Age</td>
                 <td>@items.Address</td>
                 <td>
-                    <!--Get id to change-->
+                    <!--Get StaffId-->
+                    @Html.ActionLink("See Details","StaffDetails","Admin",
+                        new { id = items.StaffId}, new { @class = "btn btn-primary"})
                     @Html.ActionLink("Change Password", "ChangePasswordForStaff", "Admin",
                         new { id = items.StaffId }, new { @class = "btn btn-primary" })
+
+                    <!--Get id to Edit-->
                     @Html.ActionLink("Edit", "EditStaff", "Admin",
-                        new { id = items.StaffId }, new { @class = "btn btn-primary" })
+                        new { id = items.Id }, new { @class = "btn btn-success" })
                     @Html.ActionLink("Delete", "DeleteStaff", "Admin",
-                        new { id = items.StaffId }, new { @class = "btn btn-primary", onclick = "return confirm('Are you sure to delete?')"})
+                        new { id = items.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure to delete?')" })
                 </td>
             </tr>
         }

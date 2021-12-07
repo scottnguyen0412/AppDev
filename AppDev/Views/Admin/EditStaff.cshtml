@@ -1,0 +1,40 @@
+﻿@model AppDev.Models.TrainningStaff
+@{
+    ViewBag.Title = "EditStaff";
+}
+
+<h2>Edit Training Staff</h2>
+<div class="form-group">
+    @Html.ActionLink("Back to Index", "IndexForStaff", null, new { @class = "btn btn-info" })
+
+</div>
+@using (Html.BeginForm("EditStaff", "Admin", FormMethod.Post))
+{
+<div>
+    <div class="form-group">
+        <!--Sử dụng để lưu lại cái ID-->
+        @Html.HiddenFor(m => m.Id)
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <label>Full Name</label>
+        @Html.TextBoxFor(d => d.FullName, new { @class = "form-control" })
+        <!--Validate FullName for Edit -->
+        @Html.ValidationMessageFor(d => d.FullName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label>Age </label>
+        @Html.TextBoxFor(a => a.Age, new { @class = "form-control"})
+        @Html.ValidationMessageFor(a => a.Age, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label>Address </label>
+        @Html.TextBoxFor(b => b.Address, new { @class = "form-control"})
+        @Html.ValidationMessageFor(b => b.Address, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Save</button>
+    </div>
+</div>
+}

@@ -13,7 +13,7 @@ using AppDev.ViewModel;
 
 namespace AppDev.Controllers
 {
-    //[Authorize(Roles = Roles.Admin)]
+    [Authorize(Roles = Roles.Admin)]
     public class AdminController : Controller
     {
         // GET: Admin
@@ -74,7 +74,7 @@ namespace AppDev.Controllers
                 var user = new ApplicationUser { UserName = viewModel.Email, Email = viewModel.Email };
                 var result = await UserManager.CreateAsync(user, viewModel.Password);
                 var stafId = user.Id;
-                var staff = new TrainningStaff
+                var staff = new TrainningStaff()
                 { 
                     StaffId = stafId,
                     FullName = viewModel.FullName,
@@ -102,15 +102,16 @@ namespace AppDev.Controllers
             return View(indexStaff);
         }
         [HttpGet]
-        public ActionResult EditStaff(string id)
+        public ActionResult EditStaff(int id)
         {
             //SingleOrDefault return default value is 1 if the value is empty
-            var StaffinDb = _context.trainningStaffs.SingleOrDefault(s => s.StaffId == id);
+            //get id of trainingStaffs Models
+            var StaffinDb = _context.trainningStaffs.SingleOrDefault(s => s.Id == id);
             if (StaffinDb == null)
             {
                 return HttpNotFound();
             }
-            return View();
+            return View(StaffinDb);
         }
 
         //Get model from Form 
@@ -121,7 +122,8 @@ namespace AppDev.Controllers
             {
                 return View(staff);
             }
-            var StaffinDb = _context.trainningStaffs.SingleOrDefault(s => s.StaffId == staff.StaffId);
+            //get id to post
+            var StaffinDb = _context.trainningStaffs.SingleOrDefault(s => s.Id == staff.Id);
             if(StaffinDb == null)
             {
                 return HttpNotFound();
@@ -129,8 +131,41 @@ namespace AppDev.Controllers
             StaffinDb.FullName = staff.FullName;
             StaffinDb.Age = staff.Age;
             StaffinDb.Address = staff.Address;
-            return RedirectToAction(" ","Admin");
+
+            _context.SaveChanges();
+            return RedirectToAction("IndexForStaff","Admin");
         }
+
+        //var staffInDb = _context.Users.SingleOrDefault(i => i.Id == id); clear user in database
+        [HttpGet]
+        public ActionResult DeleteStaff(int id)
+        {   //Lấy userID của account đang login hiện tại
+            var staffInDb = _context.trainningStaffs.SingleOrDefault(d => d.Id == id);
+            if (staffInDb == null)
+            {
+                return HttpNotFound();
+            }
+
+            //if find out the ID then remove out of database
+            _context.trainningStaffs.Remove(staffInDb);
+            //Save again
+            _context.SaveChanges();
+            return RedirectToAction("IndexForStaff", "Admin");
+        }
+
+        [HttpGet]
+        public ActionResult StaffDetails(string id)
+        { 
+            //get inform by PK staffId
+            var StaffInDb = _context.trainningStaffs.SingleOrDefault(t => t.StaffId == id);
+
+            if (StaffInDb == null)
+            {
+                return HttpNotFound();
+            }
+            return View(StaffInDb);
+        }
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -138,5 +173,7 @@ namespace AppDev.Controllers
                 ModelState.AddModelError("", error);
             }
         }
+
+        
     }
 }

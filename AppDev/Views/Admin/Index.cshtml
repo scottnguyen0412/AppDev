@@ -3,5 +3,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>The Home Page of Admin</h2>
 
+<div class="form-group">
+    @Html.ActionLink("Show Information Training Staff", "IndexForStaff", null,
+            new { @class = "btn btn-info" })
+
+    @Html.ActionLink("Show Information Trainer", "Report", null,
+        new { @class = "btn btn-info" })
+</div>
+<style>
+body { background-image: url("https://wallpaperaccess.com/full/1426869.jpg"); 
+       background-repeat: no-repeat; background-size: cover; }
+</style>
