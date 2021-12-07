@@ -9,6 +9,7 @@ namespace AppDev.Models
 {
     public class AssignTraineeToCourse
     {
+        //Set PK and FK
         [Key, Column(Order = 1)]
         [ForeignKey("Trainee")]
         public int TraineeId { get; set; }

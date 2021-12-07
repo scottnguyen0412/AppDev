@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -180,6 +181,10 @@
     <Compile Include="Migrations\202112061118447_UpdateFirstTable1.cs" />
     <Compile Include="Migrations\202112061118447_UpdateFirstTable1.Designer.cs">
       <DependentUpon>202112061118447_UpdateFirstTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112070057020_updateModelsWithAssignTraineeAndTrainer.cs" />
+    <Compile Include="Migrations\202112070057020_updateModelsWithAssignTraineeAndTrainer.Designer.cs">
+      <DependentUpon>202112070057020_updateModelsWithAssignTraineeAndTrainer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -256,6 +261,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -276,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112061118447_UpdateFirstTable1.resx">
       <DependentUpon>202112061118447_UpdateFirstTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112070057020_updateModelsWithAssignTraineeAndTrainer.resx">
+      <DependentUpon>202112070057020_updateModelsWithAssignTraineeAndTrainer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
