@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TrainningStaffController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -203,6 +204,7 @@
     <Compile Include="Utils\Roles.cs" />
     <Compile Include="ViewModel\ChangingPasswordViewModel.cs" />
     <Compile Include="ViewModel\RegisterForStaffViewModel.cs" />
+    <Compile Include="ViewModel\RegisterForTraineeViewModel.cs" />
     <Compile Include="ViewModel\RegisterForTrainerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +274,8 @@
     <Content Include="Views\Admin\EditTrainer.cshtml" />
     <Content Include="Views\Admin\TrainerDetails.cshtml" />
     <Content Include="Views\Admin\ChangePasswordForTrainer.cshtml" />
+    <Content Include="Views\TrainningStaff\CreateTrainee.cshtml" />
+    <Content Include="Views\TrainningStaff\IndexForTrainingStaff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

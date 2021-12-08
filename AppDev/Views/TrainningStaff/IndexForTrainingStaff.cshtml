@@ -1,0 +1,44 @@
+﻿@model  IEnumerable<AppDev.Models.Trainee>
+@{
+    ViewBag.Title = "IndexForTrainingStaff";
+}
+
+<h2>Home Page of Trainee Controlled by Training Staff</h2>
+
+<div class="btn-group">
+    @Html.ActionLink("Create a Trainee", "CreateTrainee", "TrainningStaff",
+        new { @class = "btn btn-primary" })
+</div>
+
+<table class="table">
+    <thead>
+        <!--List the whole inform in Model using foreach -->
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Birthday</th>
+            <th>Education</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.FullName</td>
+                <td>@items.Email</td>
+                <td>@items.Age</td>
+                <td>@items.DateOfBirth</td>
+                <td>@items.Education</td>
+                <td>
+                    <!--Get id to Edit-->
+                    @Html.ActionLink("Edit", "EditTrainee", "TrainningStaff",
+                        new { id = items.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "DeleteTrainee", "TrainningStaff",
+                        new { id = items.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure to delete?')" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -15,6 +15,8 @@ namespace AppDev.Models
 
         [ForeignKey("CourseCategory")]
         public int CategoryId { get; set; }
+
+        //Linking object
         public CourseCategory CourseCategory { get; set; }
         public string Category { get; set; }       
 

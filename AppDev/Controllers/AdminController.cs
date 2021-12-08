@@ -98,6 +98,7 @@ namespace AppDev.Controllers
             var indexStaff = _context.trainningStaffs.ToList();
             return View(indexStaff);
         }
+
         [HttpGet]
         public ActionResult EditStaff(int id)
         {
