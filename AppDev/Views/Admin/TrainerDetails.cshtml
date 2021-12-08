@@ -1,0 +1,19 @@
+﻿@model AppDev.Models.Trainner
+@{
+    ViewBag.Title = "TrainerDetails";
+}
+
+<h2>See Trainer Information Details</h2>
+<div class="form-group">
+    <!--new{} Tạo css hoặc tạo một chuỗi kết nối -->
+    @Html.ActionLink("Back to Index", "IndexForTrainer", null, new { @class = "btn btn-primary" })
+</div>
+<!--Using bootstrap to decorate-->
+<div class="panel panel-default">
+    <div class="panel-heading"><b style="color:orange">Full Name: @Model.FullName</b></div>
+    <div class="panel-body">
+        <p><b>Specialty:</b> @Model.Specialty</p>
+        <p><b>Age:</b> @Model.Age</p>
+        <p><b>Address:</b> @Model.Address</p>
+    </div>
+</div>

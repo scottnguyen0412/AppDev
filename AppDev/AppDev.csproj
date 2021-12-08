@@ -267,6 +267,10 @@
     <Content Include="Views\Admin\EditStaff.cshtml" />
     <Content Include="Views\Admin\StaffDetails.cshtml" />
     <Content Include="Views\Admin\ChangePasswordForStaff.cshtml" />
+    <Content Include="Views\Admin\CreateTrainer.cshtml" />
+    <Content Include="Views\Admin\IndexForTrainer.cshtml" />
+    <Content Include="Views\Admin\EditTrainer.cshtml" />
+    <Content Include="Views\Admin\TrainerDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

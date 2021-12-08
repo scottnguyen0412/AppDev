@@ -166,6 +166,7 @@ namespace AppDev.Controllers
             return View(StaffInDb);
         }
 
+       
         [HttpGet]
         public ActionResult ChangePasswordForStaff()
         {
@@ -180,6 +181,19 @@ namespace AppDev.Controllers
             {
                 
             }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult IndexForTrainer()
+        {
+            var indexTrainer = _context.trainers.ToList();
+            return View(indexTrainer);
+        }
+
+        [HttpGet]
+        public ActionResult CreateTrainer()
+        {
             return View();
         }
 
@@ -213,7 +227,59 @@ namespace AppDev.Controllers
             }
             return View(viewModel);
         }
-            private void AddErrors(IdentityResult result)
+
+        [HttpGet]
+        public ActionResult TrainerDetails(string id)
+        {
+            //get inform by PK TrainerId
+            var TrainerInDb = _context.trainers.SingleOrDefault(t => t.TrainerId == id);
+
+            if (TrainerInDb == null)
+            {
+                return HttpNotFound();
+            }
+            return View(TrainerInDb);
+        }
+
+        [HttpGet]
+        public ActionResult EditTrainer(int id)
+        {
+            //SingleOrDefault return default value is 1 if the value is empty
+            //get id of Trainers Models
+            var TrainerinDb = _context.trainers.SingleOrDefault(s => s.Id == id);
+            if (TrainerinDb == null)
+            {
+                return HttpNotFound();
+            }
+            return View(TrainerinDb);
+        }
+
+        //Get model from Form 
+        [HttpPost]
+        public ActionResult EditTrainer(Trainner trainner)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(trainner);
+            }
+            //get id to post
+            var TrainerinDb = _context.trainers.SingleOrDefault(s => s.Id == trainner.Id);
+            if (TrainerinDb == null)
+            {
+                return HttpNotFound();
+            }
+            TrainerinDb.FullName = trainner.FullName;
+            TrainerinDb.Specialty = trainner.Specialty;
+            TrainerinDb.Age = trainner.Age;
+            TrainerinDb.Address = trainner.Address;
+
+            _context.SaveChanges();
+            return RedirectToAction("IndexForTrainer", "Admin");
+        }
+
+
+
+        private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
