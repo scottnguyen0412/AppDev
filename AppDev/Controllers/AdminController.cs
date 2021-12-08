@@ -277,6 +277,21 @@ namespace AppDev.Controllers
             return RedirectToAction("IndexForTrainer", "Admin");
         }
 
+        [HttpGet]
+        public ActionResult DeleteTrainer(int id)
+        {   //Lấy userID của account đang login hiện tại
+            var trainerInDb = _context.trainers.SingleOrDefault(d => d.Id == id);
+            if (trainerInDb == null)
+            {
+                return HttpNotFound();
+            }
+
+            //if find out the ID then remove out of database
+            _context.trainers.Remove(trainerInDb);
+            //Save again
+            _context.SaveChanges();
+            return RedirectToAction("IndexForTrainer", "Admin");
+        }
 
 
         private void AddErrors(IdentityResult result)
