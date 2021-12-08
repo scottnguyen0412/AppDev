@@ -203,6 +203,7 @@
     <Compile Include="Utils\Roles.cs" />
     <Compile Include="ViewModel\ChangingPasswordViewModel.cs" />
     <Compile Include="ViewModel\RegisterForStaffViewModel.cs" />
+    <Compile Include="ViewModel\RegisterForTrainerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

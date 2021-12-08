@@ -88,10 +88,6 @@ namespace AppDev
             return manager;
         }
 
-        internal Task GetUserAsync(IPrincipal user)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     // Configure the application sign-in manager which is used in this application.

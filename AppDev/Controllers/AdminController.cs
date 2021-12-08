@@ -136,7 +136,7 @@ namespace AppDev.Controllers
             return RedirectToAction("IndexForStaff","Admin");
         }
 
-        //var staffInDb = _context.Users.SingleOrDefault(i => i.Id == id); clear user in database
+        //var staffuser = _context.Users.SingleOrDefault(i => i.Id == id); clear user in database
         [HttpGet]
         public ActionResult DeleteStaff(int id)
         {   //Lấy userID của account đang login hiện tại
@@ -174,12 +174,46 @@ namespace AppDev.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePasswordForStaffAsync(ChangingPasswordViewModel viewModel, string id)
+        public ActionResult ChangePasswordForStaff(ChangingPasswordViewModel viewModel)
         {
-            
+            if(ModelState.IsValid)
+            {
+                
+            }
+            return View();
         }
 
-        private void AddErrors(IdentityResult result)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateTrainer(RegisterForTrainerViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = viewModel.Email, Email = viewModel.Email };
+                var result = await UserManager.CreateAsync(user, viewModel.Password);
+                var trainerId = user.Id;
+                var trainer = new Trainner()
+                {
+                    TrainerId = trainerId,
+                    FullName = viewModel.FullName,
+                    Email = viewModel.Email,
+                    Specialty = viewModel.Specialty,
+                    Age = viewModel.Age,
+                    Address = viewModel.Address
+                };
+                if (result.Succeeded)
+                {
+                    //if create success then add trainer to dbcontext
+                    await UserManager.AddToRoleAsync(user.Id, Roles.Trainner);
+                    _context.trainers.Add(trainer);
+                    _context.SaveChanges();
+                    return RedirectToAction("IndexForTrainer", "Admin");
+                }
+                AddErrors(result);
+            }
+            return View(viewModel);
+        }
+            private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
