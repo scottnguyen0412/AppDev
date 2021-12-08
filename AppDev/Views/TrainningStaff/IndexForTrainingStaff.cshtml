@@ -5,10 +5,17 @@
 
 <h2>Home Page of Trainee Controlled by Training Staff</h2>
 
-<div class="btn-group">
+<div class="form-group">
     @Html.ActionLink("Create a Trainee", "CreateTrainee", "TrainningStaff",
         new { @class = "btn btn-primary" })
 </div>
+@using (Html.BeginForm("IndexForTrainingStaff", "TrainningStaff", FormMethod.Get))
+{
+    <div>
+        @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Search by Full name or Age" })
+    </div>
+<button type="submit" class="btn btn-primary">Search</button>
+}
 
 <table class="table">
     <thead>

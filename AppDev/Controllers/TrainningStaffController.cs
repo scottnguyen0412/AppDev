@@ -92,9 +92,18 @@ namespace AppDev.Controllers
         }
 
         [HttpGet]
-        public ActionResult IndexForTrainingStaff()
+        public ActionResult IndexForTrainingStaff(string SearchString)
         {
-            var indexTrainee = _context.trainees.ToList();
+            var indexTrainee = _context.trainees
+                                .ToList();
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                //age is int. Thus, using tostring() to convert int to string
+                indexTrainee = indexTrainee.Where(t => t.FullName.ToLower().Contains(SearchString.ToLower()) ||
+                                t.Age.ToString().Contains(SearchString.ToLower()))
+                                .ToList();
+
+            };
             return View(indexTrainee);
         }
 
