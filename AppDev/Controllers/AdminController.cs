@@ -1,15 +1,12 @@
 ﻿using AppDev.Models;
 using AppDev.Utils;
+using AppDev.ViewModel;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity.EntityFramework;
-using AppDev.ViewModel;
 
 namespace AppDev.Controllers
 {
@@ -26,8 +23,8 @@ namespace AppDev.Controllers
         }
         public AdminController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
-             UserManager = userManager;
-             SignInManager = signInManager;
+            UserManager = userManager;
+            SignInManager = signInManager;
         }
         public ApplicationSignInManager SignInManager
         {
@@ -75,7 +72,7 @@ namespace AppDev.Controllers
                 var result = await UserManager.CreateAsync(user, viewModel.Password);
                 var stafId = user.Id;
                 var staff = new TrainningStaff()
-                { 
+                {
                     StaffId = stafId,
                     FullName = viewModel.FullName,
                     Email = viewModel.Email,
@@ -118,13 +115,13 @@ namespace AppDev.Controllers
         [HttpPost]
         public ActionResult EditStaff(TrainningStaff staff)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(staff);
             }
             //get id to post
             var StaffinDb = _context.trainningStaffs.SingleOrDefault(s => s.Id == staff.Id);
-            if(StaffinDb == null)
+            if (StaffinDb == null)
             {
                 return HttpNotFound();
             }
@@ -133,7 +130,7 @@ namespace AppDev.Controllers
             StaffinDb.Address = staff.Address;
 
             _context.SaveChanges();
-            return RedirectToAction("IndexForStaff","Admin");
+            return RedirectToAction("IndexForStaff", "Admin");
         }
 
         //var staffuser = _context.Users.SingleOrDefault(i => i.Id == id); clear user in database
@@ -155,7 +152,7 @@ namespace AppDev.Controllers
 
         [HttpGet]
         public ActionResult StaffDetails(string id)
-        { 
+        {
             //get inform by PK staffId
             var StaffInDb = _context.trainningStaffs.SingleOrDefault(t => t.StaffId == id);
 
@@ -166,7 +163,7 @@ namespace AppDev.Controllers
             return View(StaffInDb);
         }
 
-       
+
         [HttpGet]
         public ActionResult ChangePasswordForStaff()
         {
@@ -309,14 +306,21 @@ namespace AppDev.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePasswordForTrainer(ChangingPasswordViewModel viewModel)
+        public async Task<ActionResult> ChangePasswordForTrainer(ChangingPasswordViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
-            return View();
-            
+            var userInDb = _context.Users.SingleOrDefault(i => i.Id == viewModel.id);
+            var result = await UserManager.ChangePasswordAsync(viewModel.id, viewModel.CurrentPassword, viewModel.NewPassword);
+            if (!result.Succeeded)
+            {
+                AddErrors(result);
+                return View(viewModel);
+            }
+            var user = await UserManager.FindByIdAsync(viewModel.id);
+            return RedirectToAction("IndexForTrainer", "Admin");
         }
 
         private void AddErrors(IdentityResult result)
@@ -327,6 +331,6 @@ namespace AppDev.Controllers
             }
         }
 
-        
+
     }
 }

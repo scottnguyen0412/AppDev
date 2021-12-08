@@ -7,6 +7,10 @@
 }
 
 <h2>Create New Training Staff Controlled by Admin</h2>
+<div class="form-group">
+    @Html.ActionLink("Back to Index", "IndexForStaff", null, new { @class = "btn btn-primary active" })
+</div>
+
 @using (Html.BeginForm("CreateTrainingStaff", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()

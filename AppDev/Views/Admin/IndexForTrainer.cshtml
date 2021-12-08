@@ -4,11 +4,15 @@
 }
 
 <h2>Index For Trainer Controlled by Admin</h2>
-<div class="form-group">
+<div class="btn-group">
     @Html.ActionLink("Create a Staff", "CreateTrainer", "Admin",
         new { @class = "btn btn-primary" })
-
 </div>
+<div class="btn-group">
+    @Html.ActionLink("Back to Index of Admin", "Index", null, 
+        new { @class = "btn btn-primary active" })
+</div>
+
 <table class="table">
     <thead>
         <!--List the whole inform in Model using foreach -->
@@ -20,7 +24,6 @@
             <th>Address</th>
             <th>Action</th>
         </tr>
-
     </thead>
     <tbody>
         @foreach (var items in Model)

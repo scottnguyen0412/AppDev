@@ -271,6 +271,7 @@
     <Content Include="Views\Admin\IndexForTrainer.cshtml" />
     <Content Include="Views\Admin\EditTrainer.cshtml" />
     <Content Include="Views\Admin\TrainerDetails.cshtml" />
+    <Content Include="Views\Admin\ChangePasswordForTrainer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

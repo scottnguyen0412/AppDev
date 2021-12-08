@@ -4,6 +4,10 @@
 }
 
 <h2>Create Trainer Controlled by Admin</h2>
+<div class="form-group">
+    @Html.ActionLink("Back to Index", "IndexForTrainer", null, new { @class = "btn btn-primary active" })
+</div>
+
 @using (Html.BeginForm("CreateTrainer", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()

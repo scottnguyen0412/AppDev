@@ -4,10 +4,15 @@
 }
 
 <h2>The Main Page For Staff Controlled by Admin</h2>
-<div class="form-group">
+
+<div class="btn-group">
     @Html.ActionLink("Create a Staff", "CreateTrainingStaff", "Admin",
         new { @class = "btn btn-primary" })
+</div>
 
+<div class="btn-group">
+    @Html.ActionLink("Back to Index of Admin", "Index", null, 
+                    new { @class = "btn btn-primary active" })
 </div>
 <table class="table">
     <thead>
