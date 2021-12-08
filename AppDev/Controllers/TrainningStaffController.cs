@@ -131,6 +131,22 @@ namespace AppDev.Controllers
             return RedirectToAction("IndexForTrainingStaff", "TrainningStaff");
         }
 
+        [HttpGet]
+        public ActionResult DeleteTrainee(int id)
+        {   //Lấy userID của account đang login hiện tại
+            var TraineeInDb = _context.trainees.SingleOrDefault(d => d.Id == id);
+            if (TraineeInDb == null)
+            {
+                return HttpNotFound();
+            }
+
+            //if find out the ID then remove out of database
+            _context.trainees.Remove(TraineeInDb);
+            //Save again
+            _context.SaveChanges();
+            return RedirectToAction("IndexForTrainingStaff", "TrainningStaff");
+        }
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
