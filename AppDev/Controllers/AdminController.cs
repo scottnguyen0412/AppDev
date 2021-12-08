@@ -175,13 +175,21 @@ namespace AppDev.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePasswordForStaff(ChangingPasswordViewModel viewModel)
+        public async Task<ActionResult> ChangePasswordForStaff(ChangingPasswordViewModel viewModel)
         {
-            if(ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                
+                return View(viewModel);
             }
-            return View();
+            var userInDb = _context.Users.SingleOrDefault(i => i.Id == viewModel.id);
+            var result = await UserManager.ChangePasswordAsync(viewModel.id, viewModel.CurrentPassword, viewModel.NewPassword);
+            if (!result.Succeeded)
+            {
+                AddErrors(result);
+                return View(viewModel);
+            }
+            var user = await UserManager.FindByIdAsync(viewModel.id);
+            return RedirectToAction("IndexForStaff", "Admin");
         }
 
         [HttpGet]
@@ -305,9 +313,10 @@ namespace AppDev.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                return View(viewModel);
             }
             return View();
+            
         }
 
         private void AddErrors(IdentityResult result)
