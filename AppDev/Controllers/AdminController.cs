@@ -293,6 +293,22 @@ namespace AppDev.Controllers
             return RedirectToAction("IndexForTrainer", "Admin");
         }
 
+        [HttpGet]
+        public ActionResult ChangePasswordForTrainer()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePasswordForTrainer(ChangingPasswordViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+            return View();
+        }
 
         private void AddErrors(IdentityResult result)
         {

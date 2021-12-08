@@ -2,30 +2,139 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <style>
+        h1 {
+            font-family: "Sofia";
+            font-size: 80px;
+            color: burlywood;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: url("https://img4.goodfon.com/wallpaper/nbig/2/d8/abstraktsiia-geometriia-oboi-white-green-blue-squares-abstra.jpg")
+        }
+
+        .content {
+            height: 200%;
+            width: 300px;
+            box-shadow: 1px 1px 15px rgba(0,0,0,0.4);
+        }
+
+            .content .images {
+                height: 200%;
+                width: 200%;
+            }
+
+        .images img {
+            height: 600px;
+            width: 170%;
+        }
+    </style>
+</head>
+<body>
+    <br /><br />
+    <h1>Welcome to The Training System</h1><br />
+    <div class="content">
+        <div class="images">
+            <img src="https://scholarship-positions.com/wp-content/uploads/2019/12/Care-Leaver-Bursary-at-the-University-of-Greenwich-in-UK-1024x576.jpg" alt="first">
+            <img src="https://wallpaperaccess.com/full/4688687.jpg" alt="two">
+            <img src="https://employeebenefits.co.uk/content/uploads/2020/01/shutterstock_742274224.jpg" alt="three">
+            <!--<img src="#">
+            <img src="#"> -->
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <script>
+        var indexValue = 0;
+        function slideShow() {
+            setTimeout(slideShow, 3000);
+            var x;
+            const img = document.querySelectorAll("img");
+            for (x = 0; x < img.length; x++) {
+                img[x].style.display = "none";
+            }
+            indexValue++;
+            if (indexValue > img.length) { indexValue = 1 }
+            img[indexValue - 1].style.display = "block";
+        }
+        slideShow();
+    </script>
+
+    <div class="row">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <!--chỉ định nội dung admin có thể thấy-->
+            if (User.IsInRole(AppDev.Utils.Roles.Admin))
+            {
+                <div class="col-md-4">
+                    <h2>Admin</h2>
+                    <p>
+                        @Html.ActionLink("Show Trainer and Training Staff", "Index", "Admin", null, new { @class = "btn btn-primary" })
+                    </p>
+                </div>
+            }
+
+            <!--chỉ định nội dung Trainer có thể thấy-->
+            if (User.IsInRole(AppDev.Utils.Roles.Trainner))
+            {
+                <div class="col-md-4">
+                    <h2>Trainer</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+                        numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+                        optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+                        obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+                        nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
+                        tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
+                        quia.
+                    </p>
+                </div>
+            }
+
+            <!--chỉ định nội dung Traning Staff có thể thấy-->
+            if (User.IsInRole(AppDev.Utils.Roles.TrainingStaff))
+            {
+                <div class="col-md-4">
+                    <h2>Traning Staff</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+                        numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+                        optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+                        obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+                        nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
+                        tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
+                        quia.
+                    </p>
+                </div>
+            }
+
+            if (User.IsInRole(AppDev.Utils.Roles.Trainee))
+            {
+                <div class="col-md-4">
+                    <h2>Trainee</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+                        numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+                        optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+                        obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+                        nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
+                        tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
+                        quia.
+                    </p>
+                </div>
+            }
+
+        }
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</body>
