@@ -33,7 +33,7 @@
                 <td>@items.Education</td>
                 <td>
                     <!--Get id to Edit-->
-                    @Html.ActionLink("Edit", "EditTrainee", "TrainningStaff",
+                    @Html.ActionLink("Edit", "UpdateForTrainee", "TrainningStaff",
                         new { id = items.Id }, new { @class = "btn btn-success" })
                     @Html.ActionLink("Delete", "DeleteTrainee", "TrainningStaff",
                         new { id = items.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure to delete?')" })

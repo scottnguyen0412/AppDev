@@ -98,6 +98,39 @@ namespace AppDev.Controllers
             return View(indexTrainee);
         }
 
+        [HttpGet]
+        public ActionResult UpdateForTrainee(int id)
+        {
+            var TraineeInDb = _context.trainees.SingleOrDefault(s => s.Id == id);
+            if (TraineeInDb == null)
+            {
+                return HttpNotFound();
+            }
+            return View(TraineeInDb);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateForTrainee(Trainee trainee)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(trainee);
+            }
+            //get id to post
+            var TraineeInDb = _context.trainees.SingleOrDefault(s => s.Id == trainee.Id);
+            if (TraineeInDb == null)
+            {
+                return HttpNotFound();
+            }
+            TraineeInDb.FullName = trainee.FullName;
+            TraineeInDb.Age = trainee.Age;
+            TraineeInDb.DateOfBirth = trainee.DateOfBirth;
+            TraineeInDb.Education = trainee.Education;
+
+            _context.SaveChanges();
+            return RedirectToAction("IndexForTrainingStaff", "TrainningStaff");
+        }
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)

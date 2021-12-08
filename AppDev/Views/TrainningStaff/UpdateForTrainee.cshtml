@@ -1,0 +1,45 @@
+﻿@model AppDev.Models.Trainee
+@{
+    ViewBag.Title = "UpdateForTrainee";
+}
+
+<h2>Update For Trainee Controlled by Training Staff</h2>
+<div class="form-group">
+    @Html.ActionLink("Back to Index", "IndexForTrainingStaff", null, new { @class = "btn btn-primary active" })
+
+</div>
+@using (Html.BeginForm("UpdateForTrainee", "TrainningStaff", FormMethod.Post))
+{
+    <div>
+        <div class="form-group">
+            <!--Sử dụng để lưu lại cái ID-->
+            @Html.HiddenFor(m => m.Id)
+            <label>Full Name</label>
+            @Html.TextBoxFor(d => d.FullName, new { @class = "form-control" })
+            <!--Validate FullName for Edit -->
+            @Html.ValidationMessageFor(d => d.FullName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label>Age </label>
+            @Html.TextBoxFor(a => a.Age, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Age, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label>Birthday </label>
+            @Html.TextBoxFor(a => a.DateOfBirth, new { @class = "form-control", @type = "date"})
+            @Html.ValidationMessageFor(a => a.DateOfBirth, "", new { @class = "text-danger"})
+        </div>
+
+        <div class="form-group">
+            <label>Education </label>
+            @Html.TextBoxFor(b => b.Education, new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.Education, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Save</button>
+        </div>
+    </div>
+}
