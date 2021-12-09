@@ -3,13 +3,22 @@
     ViewBag.Title = "IndexForCourseCategory";
 }
 
+
 <h2>Index For Course Category Controlled by Training Staff</h2>
+<div class="btn-group">
+    @Html.ActionLink("Back to Index Page", "Index", null,
+                        new { @class = "btn btn-primary active" })
+</div>
 <div class="btn-group">
     @Html.ActionLink("Create a Course Category", "CreateCourseCategory", "TrainningStaff",
         new { @class = "btn btn-primary" })
 </div>
-
-<br /> <br />
+<div class="btn-group">
+    @Html.ActionLink("Manage Courses", "IndexForCourse", "TrainningStaff",
+        new { @class = "btn btn-primary" })
+</div>
+<br />
+<br />
 @using (Html.BeginForm("IndexForCourseCategory", "TrainningStaff", FormMethod.Get))
 {
     <div>

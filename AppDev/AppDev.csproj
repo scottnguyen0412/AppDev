@@ -203,6 +203,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\Roles.cs" />
     <Compile Include="ViewModel\ChangingPasswordViewModel.cs" />
+    <Compile Include="ViewModel\CourseViewModel.cs" />
     <Compile Include="ViewModel\RegisterForStaffViewModel.cs" />
     <Compile Include="ViewModel\RegisterForTraineeViewModel.cs" />
     <Compile Include="ViewModel\RegisterForTrainerViewModel.cs" />
@@ -281,6 +282,8 @@
     <Content Include="Views\TrainningStaff\CreateCourseCategory.cshtml" />
     <Content Include="Views\TrainningStaff\IndexForCourseCategory.cshtml" />
     <Content Include="Views\TrainningStaff\UpdateForCourseCategory.cshtml" />
+    <Content Include="Views\TrainningStaff\CreateForCourse.cshtml" />
+    <Content Include="Views\TrainningStaff\IndexForCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

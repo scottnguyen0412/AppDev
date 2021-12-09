@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 namespace AppDev.Controllers
 {
     [Authorize(Roles = Roles.TrainingStaff)]
@@ -155,7 +156,7 @@ namespace AppDev.Controllers
             return RedirectToAction("IndexForTrainingStaff", "TrainningStaff");
         }
 
-        //Course Category
+        //For Course Category
         [HttpGet]
         public ActionResult IndexForCourseCategory(string SearchString)
         {
@@ -251,6 +252,54 @@ namespace AppDev.Controllers
             //Save again
             _context.SaveChanges();
             return RedirectToAction("IndexForCourseCategory", "TrainningStaff");
+        }
+
+        //For Course
+        [HttpGet]
+        public ActionResult IndexForCourse()
+        {
+            var courseInDb = _context.courses.Include(c => c.CourseCategory);
+            return View(courseInDb);
+        }
+
+        [HttpGet]
+        public ActionResult CreateForCourse()
+        {
+            var CourseviewModel = new CourseViewModel
+            {
+                //courseCategories of viewmodel will equal courseCategories in Database
+                courseCategories = _context.courseCategories.ToList()
+            };
+            return View(CourseviewModel);
+        }
+
+        //through viewModel get form course
+        [HttpPost]
+        public ActionResult CreateForCourse(CourseViewModel viewModel)
+        {
+            //if modelState là không có sẵn thì return view
+            if (!ModelState.IsValid)
+            {
+                var model = new CourseViewModel
+                {
+                    courseCategories = _context.courseCategories.ToList(),
+                    course = viewModel.course
+                };
+                return View(model);
+            }
+            var newCourse = new Course()
+            {
+                CourseName = viewModel.course.CourseName,
+                CategoryId = viewModel.course.CategoryId,
+                CourseDescription = viewModel.course.CourseDescription
+            };
+
+            //Add lại vào trong database
+            _context.courses.Add(newCourse);
+
+            //Save lại 
+            _context.SaveChanges();
+            return RedirectToAction("IndexForCourse","TrainningStaff");
         }
 
         private void AddErrors(IdentityResult result)
