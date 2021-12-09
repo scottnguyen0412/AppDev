@@ -9,7 +9,6 @@ namespace AppDev.Models
 {
     public class Trainner
     {
-        //create foreignkey with table user
         [Key]
         public int Id { get; set; }
 
@@ -20,6 +19,7 @@ namespace AppDev.Models
         public int Age { get; set; } 
         public string Address { get; set; }
 
+        //create foreignkey with table user
         [ForeignKey("User")]
         public string TrainerId { get; set; }
         public ApplicationUser User { get; set; }

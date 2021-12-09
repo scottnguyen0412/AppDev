@@ -256,9 +256,15 @@ namespace AppDev.Controllers
 
         //For Course
         [HttpGet]
-        public ActionResult IndexForCourse()
+        public ActionResult IndexForCourse(string SearchString)
         {
-            var courseInDb = _context.courses.Include(c => c.CourseCategory);
+            var courseInDb = _context.courses.Include(c => c.CourseCategory).ToList();
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                courseInDb = courseInDb.Where(t => t.CourseName.ToLower().Contains(SearchString.ToLower()) ||
+                                                     t.CourseDescription.ToLower().Contains(SearchString.ToLower()))
+                                                     .ToList();
+            };
             return View(courseInDb);
         }
 
@@ -346,6 +352,23 @@ namespace AppDev.Controllers
             _context.SaveChanges();
             return RedirectToAction("IndexForCourse", "TrainningStaff");
         }
+
+        [HttpGet]
+        public ActionResult DeleteForCourse(int id)
+        {   //Lấy userID của account đang login hiện tại
+            var CourseInDb = _context.courses.SingleOrDefault(d => d.Id == id);
+            if (CourseInDb == null)
+            {
+                return HttpNotFound();
+            }
+
+            //if find out the ID then remove out of database
+            _context.courses.Remove(CourseInDb);
+            //Save again
+            _context.SaveChanges();
+            return RedirectToAction("IndexForCourse", "TrainningStaff");
+        }
+
 
         private void AddErrors(IdentityResult result)
         {
