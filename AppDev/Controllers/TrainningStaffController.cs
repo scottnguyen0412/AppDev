@@ -155,13 +155,47 @@ namespace AppDev.Controllers
             return RedirectToAction("IndexForTrainingStaff", "TrainningStaff");
         }
 
-        // Categories index
+
         [HttpGet]
         public ActionResult IndexForCourseCategory()
+        {
+            var indexCourseCategory = _context.courseCategories.ToList();
+            return View(indexCourseCategory);
+        }
+
+        [HttpGet]
+        public ActionResult CreateCourseCategory()
         {
             return View();
         }
 
+        [HttpPost]
+        public ActionResult CreateCourseCategory(CourseCategory courseCategory)
+        {
+            //Người dùng không nhập thì hiển thị thông báo
+            if (!ModelState.IsValid)
+            {
+                return View(courseCategory);
+            }
+
+            var coursecategory = new CourseCategory()
+            {
+                Name = courseCategory.Name,
+                Description = courseCategory.Description
+            };
+            //sử dụng try catch để hiển thị lỗi khi tạo 2 tên trùng nhau
+            try
+            {
+                _context.courseCategories.Add(coursecategory);
+                _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                ModelState.AddModelError("Duplicate", "Course Category already existed");
+                return View(courseCategory);
+            }
+            return RedirectToAction("IndexForCourseCategory","TrainningStaff");
+        }
 
         private void AddErrors(IdentityResult result)
         {

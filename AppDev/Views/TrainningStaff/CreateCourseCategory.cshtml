@@ -1,0 +1,26 @@
+﻿@model AppDev.Models.CourseCategory
+@{
+    ViewBag.Title = "CreateCourseCategory";
+}
+<br />
+<div class="btn-group">
+    @Html.ActionLink("Back to Index of Course Category", "IndexForCourseCategory", null,
+                    new { @class = "btn btn-primary active" })
+</div>
+<h2>Create Course Category</h2>
+@using (Html.BeginForm("CreateCourseCategory", "TrainningStaff", FormMethod.Post))
+{
+    <div class="form-group">
+        <label>Course Category Name:</label>
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        @Html.ValidationMessage("duplicate", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label>Description:</label>
+        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+        @Html.ValidationMessage("duplicate", new { @class = "text-danger" })
+    </div>
+    <button type="submit" , class="btn btn-primary">Create</button>
+}
