@@ -185,7 +185,7 @@ namespace AppDev.Controllers
                 return View(courseCategory);
             }
 
-            var coursecategory = new CourseCategory()
+            var Coursecategory = new CourseCategory()
             {
                 Name = courseCategory.Name,
                 Description = courseCategory.Description
@@ -193,7 +193,50 @@ namespace AppDev.Controllers
             //sử dụng try catch để hiển thị lỗi khi tạo 2 tên trùng nhau
             try
             {
-                _context.courseCategories.Add(coursecategory);
+                _context.courseCategories.Add(Coursecategory);
+                _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                ModelState.AddModelError("duplicate", "Course Category already existed");
+                return View(courseCategory);
+            }
+            return RedirectToAction("IndexForCourseCategory","TrainningStaff");
+        }
+
+        [HttpGet]
+        public ActionResult UpdateForCourseCategory(int id)
+        {
+            var CourseCategoryInDb = _context.courseCategories.SingleOrDefault(s => s.Id == id);
+            if (CourseCategoryInDb == null)
+            {
+                return HttpNotFound();
+            }
+            return View(CourseCategoryInDb);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateForCourseCategory(CourseCategory courseCategory)
+        {
+            //nếu người dùng không nhập gì thì trả về thông báo
+            if (!ModelState.IsValid)
+            {
+                return View(courseCategory);
+            }
+            //get id to post
+            var CourseCategoryInDb = _context.courseCategories.SingleOrDefault(s => s.Id == courseCategory.Id);
+            if (CourseCategoryInDb == null)
+            {
+                return HttpNotFound();
+            }
+            //Name in DB will same with Name of Models
+            CourseCategoryInDb.Name = courseCategory.Name;
+            CourseCategoryInDb.Description = courseCategory.Description;
+
+            //sử dụng try-catch bắt lỗi trùng lặp
+            try
+            {
+                _context.courseCategories.Add(CourseCategoryInDb);
                 _context.SaveChanges();
             }
             catch (System.Exception)
@@ -201,7 +244,9 @@ namespace AppDev.Controllers
                 ModelState.AddModelError("Duplicate", "Course Category already existed");
                 return View(courseCategory);
             }
-            return RedirectToAction("IndexForCourseCategory","TrainningStaff");
+            //Save again to DB
+            _context.SaveChanges();
+            return RedirectToAction("IndexForCourseCategory", "TrainningStaff");
         }
 
         private void AddErrors(IdentityResult result)
