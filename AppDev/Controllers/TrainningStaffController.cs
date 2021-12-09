@@ -157,10 +157,17 @@ namespace AppDev.Controllers
 
 
         [HttpGet]
-        public ActionResult IndexForCourseCategory()
+        public ActionResult IndexForCourseCategory(string SearchString)
         {
-            var indexCourseCategory = _context.courseCategories.ToList();
-            return View(indexCourseCategory);
+            var CourseCategoryInDB = _context.courseCategories.ToList();
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                CourseCategoryInDB = CourseCategoryInDB.Where(t => t.Name.ToLower().Contains(SearchString.ToLower())|| 
+                                                              t.Description.ToLower().Contains(SearchString.ToLower()))
+                                                             .ToList();
+
+            };
+            return View(CourseCategoryInDB);
         }
 
         [HttpGet]

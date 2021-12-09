@@ -9,6 +9,14 @@
         new { @class = "btn btn-primary" })
 </div>
 
+<br /> <br />
+@using (Html.BeginForm("IndexForCourseCategory", "TrainningStaff", FormMethod.Get))
+{
+    <div>
+        @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Search by Name or Description" })
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+}
 
 <table class="table">
     <thead>
@@ -17,7 +25,7 @@
             <th>Course Category Name</th>
             <th>Description</th>
             <th>Action</th>
-            
+
         </tr>
     </thead>
     <tbody>
