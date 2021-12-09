@@ -11,6 +11,7 @@
 @using (Html.BeginForm("UpdateForCourseCategory", "TrainningStaff", FormMethod.Post))
 {
     <div class="form-group">
+        @Html.HiddenFor(m => m.Id)
         <label>Course Category Name:</label>
         @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })

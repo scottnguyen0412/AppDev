@@ -232,19 +232,7 @@ namespace AppDev.Controllers
             //Name in DB will same with Name of Models
             CourseCategoryInDb.Name = courseCategory.Name;
             CourseCategoryInDb.Description = courseCategory.Description;
-
-            //sử dụng try-catch bắt lỗi trùng lặp
-            try
-            {
-                _context.courseCategories.Add(CourseCategoryInDb);
-                _context.SaveChanges();
-            }
-            catch (System.Exception)
-            {
-                ModelState.AddModelError("Duplicate", "Course Category already existed");
-                return View(courseCategory);
-            }
-            //Save again to DB
+            //save again
             _context.SaveChanges();
             return RedirectToAction("IndexForCourseCategory", "TrainningStaff");
         }
