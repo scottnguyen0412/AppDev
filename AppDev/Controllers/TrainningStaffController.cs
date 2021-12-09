@@ -155,7 +155,7 @@ namespace AppDev.Controllers
             return RedirectToAction("IndexForTrainingStaff", "TrainningStaff");
         }
 
-
+        //Course Category
         [HttpGet]
         public ActionResult IndexForCourseCategory(string SearchString)
         {
@@ -245,6 +245,22 @@ namespace AppDev.Controllers
                 return View(courseCategory);
             }
             //Save again to DB
+            _context.SaveChanges();
+            return RedirectToAction("IndexForCourseCategory", "TrainningStaff");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteForCourseCategory(int id)
+        {   
+            var CourseCategoryInDb = _context.courseCategories.SingleOrDefault(d => d.Id == id);
+            if (CourseCategoryInDb == null)
+            {
+                return HttpNotFound();
+            }
+
+            //if find out the ID then remove out of database
+            _context.courseCategories.Remove(CourseCategoryInDb);
+            //Save again
             _context.SaveChanges();
             return RedirectToAction("IndexForCourseCategory", "TrainningStaff");
         }
