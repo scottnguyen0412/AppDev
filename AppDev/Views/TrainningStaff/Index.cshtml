@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Home Page For Training Staff</h2>
+
+<div class="form-group">
+    @Html.ActionLink("Show Information of Trainee", "IndexForTrainingStaff", null,
+            new { @class = "btn btn-primary btn-lg" })
+
+    @Html.ActionLink("Show Courses", "IndexForCourse", null,
+        new { @class = "btn btn-primary btn-lg" })
+</div>
+<style>
+    body {
+        background-image: url("https://wallpaperaccess.com/full/1426875.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+

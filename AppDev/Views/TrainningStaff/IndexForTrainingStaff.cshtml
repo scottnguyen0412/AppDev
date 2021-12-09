@@ -5,47 +5,52 @@
 
 <h2>Home Page of Trainee Controlled by Training Staff</h2>
 
-<div class="form-group">
+<div class="btn-group">
     @Html.ActionLink("Create a Trainee", "CreateTrainee", "TrainningStaff",
         new { @class = "btn btn-primary" })
 </div>
-@using (Html.BeginForm("IndexForTrainingStaff", "TrainningStaff", FormMethod.Get))
-{
-    <div>
-        @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Search by Full name or Age" })
-    </div>
-<button type="submit" class="btn btn-primary">Search</button>
-}
+<div class="btn-group">
+    @Html.ActionLink("Back to Index of Training Staff", "Index", null,
+                    new { @class = "btn btn-primary active" })
+</div>
+<br /><br />
+    @using (Html.BeginForm("IndexForTrainingStaff", "TrainningStaff", FormMethod.Get))
+    {
+        <div>
+            @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Search by Full name or Age" })
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    }
 
-<table class="table">
-    <thead>
-        <!--List the whole inform in Model using foreach -->
-        <tr>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Age</th>
-            <th>Birthday</th>
-            <th>Education</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var items in Model)
-        {
+    <table class="table">
+        <thead>
+            <!--List the whole inform in Model using foreach -->
             <tr>
-                <td>@items.FullName</td>
-                <td>@items.Email</td>
-                <td>@items.Age</td>
-                <td>@items.DateOfBirth</td>
-                <td>@items.Education</td>
-                <td>
-                    <!--Get id to Edit-->
-                    @Html.ActionLink("Edit", "UpdateForTrainee", "TrainningStaff",
-                        new { id = items.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Delete", "DeleteTrainee", "TrainningStaff",
-                        new { id = items.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure to delete?')" })
-                </td>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Birthday</th>
+                <th>Education</th>
+                <th>Action</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var items in Model)
+            {
+                <tr>
+                    <td>@items.FullName</td>
+                    <td>@items.Email</td>
+                    <td>@items.Age</td>
+                    <td>@items.DateOfBirth</td>
+                    <td>@items.Education</td>
+                    <td>
+                        <!--Get id to Edit-->
+                        @Html.ActionLink("Edit", "UpdateForTrainee", "TrainningStaff",
+                            new { id = items.Id }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Delete", "DeleteTrainee", "TrainningStaff",
+                            new { id = items.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure to delete?')" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

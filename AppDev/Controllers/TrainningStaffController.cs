@@ -99,10 +99,10 @@ namespace AppDev.Controllers
             if (!string.IsNullOrEmpty(SearchString))
             {
                 //age is int. Thus, using tostring() to convert int to string
-                indexTrainee = indexTrainee.Where(t => t.FullName.ToLower().Contains(SearchString.ToLower()) ||
-                                t.Age.ToString().Contains(SearchString.ToLower()))
-                                .ToList();
-
+                indexTrainee = indexTrainee.Where(t => t.FullName.ToLower()
+                                                        .Contains(SearchString.ToLower()) ||
+                                                        t.Age.ToString().Contains(SearchString.ToLower()))
+                                                        .ToList();
             };
             return View(indexTrainee);
         }
@@ -117,7 +117,6 @@ namespace AppDev.Controllers
             }
             return View(TraineeInDb);
         }
-
         [HttpPost]
         public ActionResult UpdateForTrainee(Trainee trainee)
         {
@@ -155,6 +154,14 @@ namespace AppDev.Controllers
             _context.SaveChanges();
             return RedirectToAction("IndexForTrainingStaff", "TrainningStaff");
         }
+
+        // Categories index
+        [HttpGet]
+        public ActionResult IndexForCourseCategory()
+        {
+            return View();
+        }
+
 
         private void AddErrors(IdentityResult result)
         {
