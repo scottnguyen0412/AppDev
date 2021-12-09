@@ -291,7 +291,8 @@ namespace AppDev.Controllers
             {
                 CourseName = viewModel.course.CourseName,
                 CategoryId = viewModel.course.CategoryId,
-                CourseDescription = viewModel.course.CourseDescription
+                CourseDescription = viewModel.course.CourseDescription,
+                CourseCategory = viewModel.course.CourseCategory
             };
 
             //Add lại vào trong database
@@ -300,6 +301,50 @@ namespace AppDev.Controllers
             //Save lại 
             _context.SaveChanges();
             return RedirectToAction("IndexForCourse","TrainningStaff");
+        }
+
+        [HttpGet]
+        public ActionResult UpdateForCourse(int id)
+        {
+            var courseInDb = _context.courses.SingleOrDefault(s => s.Id == id);
+            if (courseInDb == null)
+            {
+                return HttpNotFound();
+            }
+            var newCourseViewModel = new CourseViewModel
+            { 
+                course = courseInDb,
+                courseCategories = _context.courseCategories.ToList()
+            };
+            return View(newCourseViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateForCourse(CourseViewModel courseViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                var NewCourseViewModel = new CourseViewModel
+                {
+                    course = courseViewModel.course,
+                    courseCategories = _context.courseCategories.ToList()
+                };
+            }
+            //get data in dbcontext by id
+            var dataInDB = _context.courses.SingleOrDefault(d => d.Id == courseViewModel.course.Id);
+            if (dataInDB == null)
+            {
+                return HttpNotFound();
+            }
+
+            //if find out id 
+            dataInDB.CourseName = courseViewModel.course.CourseName;
+            dataInDB.CourseDescription = courseViewModel.course.CourseDescription;
+            dataInDB.CourseCategory = courseViewModel.course.CourseCategory;
+            dataInDB.CategoryId = courseViewModel.course.CategoryId;
+
+            _context.SaveChanges();
+            return RedirectToAction("IndexForCourse", "TrainningStaff");
         }
 
         private void AddErrors(IdentityResult result)

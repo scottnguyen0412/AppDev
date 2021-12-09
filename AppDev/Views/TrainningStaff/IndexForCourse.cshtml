@@ -33,7 +33,7 @@
                 <!--Display Course Category by Name-->
                 <td>@items.CourseCategory.Name</td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = items.Id },
+                    @Html.ActionLink("Edit", "UpdateForCourse", new { id = items.Id },
                                    new { @class = "btn btn-success" })
                     @Html.ActionLink("Delete Information", "Delete", new { id = items.Id},
                                           new { @class = "btn btn-danger", onclick = "return confirm('Are you sure to delete?');" })

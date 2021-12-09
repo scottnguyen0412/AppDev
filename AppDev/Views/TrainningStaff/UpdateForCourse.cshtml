@@ -1,0 +1,43 @@
+﻿@model AppDev.ViewModel.CourseViewModel
+@{
+    ViewBag.Title = "UpdateForCourse";
+}
+
+<h2>Update For Course</h2>
+<div class="form-group">
+    @Html.ActionLink("Back to Index", "IndexForCourse", null, new { @class = "btn btn-info" })
+
+</div>
+@using (Html.BeginForm("UpdateForCourse", "TrainningStaff", FormMethod.Post))
+{
+    <div>
+        <div class="form-group">
+            <!--Sử dụng để lưu lại cái ID-->
+
+            @Html.HiddenFor(m => m.course.Id)
+            <label>Course Name</label>
+            @Html.TextBoxFor(d => d.course.CourseName, new { @class = "form-control" })
+            <!--Validate Description for Edit -->
+            @Html.ValidationMessageFor(m => m.course.CourseName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Course Description </label>
+            @Html.TextBoxFor(a => a.course.CourseDescription, new { @class = "form-control"})
+            @Html.ValidationMessageFor(m => m.course.CourseDescription, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Course Category</label>
+            <!--drop list
+                Selectlist của Model.Categories
+                Tiếp đến sẽ select cái "Id"
+                Và hiển thị ra là cái "name"
+            -->
+            @Html.DropDownListFor(m => m.course.CategoryId
+                                   ,new SelectList(Model.courseCategories, "Id", "name")
+                                   ,new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+}
