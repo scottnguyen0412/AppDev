@@ -12,7 +12,7 @@ namespace AppDev.Models
         //set PK and FK 
         [Key, Column(Order = 1)]
         [ForeignKey("Trainer")]
-        public int TrainerId { get; set; }
+        public string TrainerId { get; set; }
         public Trainner Trainer { get; set; }
 
         [Key, Column(Order = 2)]

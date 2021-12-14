@@ -18,6 +18,11 @@ namespace AppDev
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "AssignTrainee",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "AssignTrainee", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }
