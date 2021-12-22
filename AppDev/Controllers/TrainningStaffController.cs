@@ -437,7 +437,26 @@ namespace AppDev.Controllers
             }
             return RedirectToAction(" ", " ");
         }
-        
+        //Index for Trainee
+        [HttpGet]
+        public ActionResult IndexForAssignTrainee(string SearchString)
+        {
+            var trainer = _context.assignTraineeToCourses.ToList();
+
+            //groupby course and get key of course
+            IEnumerable<HomeofAssign> viewModel = _context.assignTraineeToCourses.GroupBy(i => i.Course)
+                                                           .Select(h => new HomeofAssign
+                                                           {
+                                                               course = h.Key,
+                                                               trainees = h.Select(u => u.Trainee).ToList()
+                                                           }).ToList();
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                viewModel = viewModel.Where(t => t.course.CourseName.ToLower()
+                                                .Contains(SearchString.ToLower())).ToList();
+            }
+            return View(viewModel);
+        }
         //Index for Trainer
         [HttpGet]
         public ActionResult IndexForAssignTrainer(string SearchString)
