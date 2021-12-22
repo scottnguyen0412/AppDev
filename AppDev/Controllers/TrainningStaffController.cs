@@ -408,7 +408,7 @@ namespace AppDev.Controllers
                 };
                 return View(newViewModel);
             }
-            return RedirectToAction(" ", " ");
+            return RedirectToAction("IndexForAssignTrainer", "TrainningStaff");
         }
 
         //For Trainee
@@ -435,7 +435,7 @@ namespace AppDev.Controllers
                 };
                 return View(newViewModel);
             }
-            return RedirectToAction(" ", " ");
+            return RedirectToAction("IndexForAssignTrainee", "TrainningStaff");
         }
         //Index for Trainee
         [HttpGet]
@@ -478,6 +478,7 @@ namespace AppDev.Controllers
             return View(viewModel);
         }
 
+
         //remove trainer
         [HttpGet]
         public ActionResult RemoveTrainer(int id)
@@ -489,7 +490,20 @@ namespace AppDev.Controllers
             }
             _context.assignTrainerToCourses.Remove(CourseDB);
             _context.SaveChanges();
-            return RedirectToAction(" "," ");
+            return RedirectToAction("IndexForAssignTrainer", "TrainningStaff");
+        }
+        //remove trainee
+        [HttpGet]
+        public ActionResult RemoveTrainee(int id)
+        {
+            var CourseDB = _context.assignTraineeToCourses.SingleOrDefault(c => c.CourseId == id);
+            if (CourseDB == null)
+            {
+                return HttpNotFound();
+            }
+            _context.assignTraineeToCourses.Remove(CourseDB);
+            _context.SaveChanges();
+            return RedirectToAction("IndexForAssignTrainee", "TrainningStaff");
         }
 
         private void AddErrors(IdentityResult result)
