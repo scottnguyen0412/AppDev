@@ -295,6 +295,7 @@
     <Content Include="Views\TrainningStaff\UpdateForCourse.cshtml" />
     <Content Include="Views\TrainningStaff\IndexForAssignTrainee.cshtml" />
     <Content Include="Views\TrainningStaff\IndexForAssignTrainer.cshtml" />
+    <Content Include="Views\TrainningStaff\AssignTrainee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

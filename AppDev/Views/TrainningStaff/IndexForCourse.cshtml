@@ -44,6 +44,8 @@
                 <td>
                     @Html.ActionLink("Edit", "UpdateForCourse", new { id = items.Id },
                                    new { @class = "btn btn-success" })
+                    @Html.ActionLink("Assign Trainer to Course", "AssignTrainer", null, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Assign Trainee to Course", "AssignTrainee", null, new { @class = "btn btn-primary" })
                     @Html.ActionLink("Delete Information", "DeleteForCourse", new { id = items.Id },
                                           new { @class = "btn btn-danger", onclick = "return confirm('Are you sure to delete?');" })
                 </td>
