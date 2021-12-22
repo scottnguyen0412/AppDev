@@ -1,7 +1,49 @@
-﻿
+﻿@model IEnumerable<AppDev.ViewModel.HomeofAssign>
 @{
-    ViewBag.Title = "IndexForAssignTrainer";
+    ViewBag.Title = "IndexForAssign";
 }
 
-<h2>IndexForAssignTrainer</h2>
+<h2>Index For Assign Trainer To Course</h2>
+<div class="btn-group">
+    @Html.ActionLink("Back to Index of Course", "IndexForCourse", null,
+                        new { @class = "btn btn-primary active" })
+</div>
+<br />
+<br />
+@using (Html.BeginForm("IndexForAssignTrainer", "TrainningStaff", FormMethod.Get))
+{
+    <div>
+        @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Search by Course Name " })
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+}
+<table class="table">
+    <thead>
+        <!--List the whole inform in Model using foreach -->
+        <tr>
+            <th>Course Name</th>
+            <th>Trainer Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.course.CourseName</td>
+
+                @foreach (var item in items.trainers)
+                {
+                    <td>
+                        @item.Email
+                    </td>
+                }
+                <td>
+                    @Html.ActionLink("Remove trainer out of course", "RemoveTrainer", new { Id = items.course.Id },
+                                    new { @class = "btn btn-danger", onclick = "return confirm('Are you sure to delete?');" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
