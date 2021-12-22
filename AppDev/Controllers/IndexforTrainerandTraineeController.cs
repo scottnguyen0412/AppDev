@@ -77,5 +77,15 @@ namespace AppDev.Controllers
             return View(courseInDB);
 
         }
+        [HttpGet]
+        [Authorize(Roles = Roles.Trainner)]
+        public ActionResult ViewTraineeInCourse()
+        {
+            var userId = User.Identity.GetUserId();
+            var TrainerInDb = _context.assignTraineeToCourses.Where(t => t.Trainee.TraineeId == userId)
+                                                             .Select(c => c.CourseId).ToList();
+
+            return View();
+        }
     }
-    }
+}
