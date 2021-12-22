@@ -437,15 +437,40 @@ namespace AppDev.Controllers
             }
             return RedirectToAction(" ", " ");
         }
-
+        
         //Index for Trainer
         [HttpGet]
         public ActionResult IndexForAssignTrainer(string SearchString)
         {
-            var trainer = _context.assignTraineeToCourses.ToList();
+            var trainer = _context.assignTrainerToCourses.ToList();
 
             //groupby course and get key of course
-            IEnumerable<> 
+            IEnumerable<HomeofAssign> viewModel = _context.assignTrainerToCourses.GroupBy(i => i.Course)
+                                                           .Select(h => new HomeofAssign
+                                                           {
+                                                               course = h.Key,
+                                                               trainers = h.Select(u => u.Trainer).ToList()
+                                                           }).ToList();
+            if(!string.IsNullOrEmpty(SearchString))
+            {
+                viewModel = viewModel.Where(t => t.course.CourseName.ToLower()
+                                                .Contains(SearchString.ToLower())).ToList();
+            }
+            return View(viewModel);
+        }
+
+        //remove trainer
+        [HttpGet]
+        public ActionResult RemoveTrainer(int id)
+        {
+            var CourseDB = _context.assignTrainerToCourses.SingleOrDefault(c => c.CourseId == id);
+            if(CourseDB == null)
+            {
+                return HttpNotFound();
+            }
+            _context.assignTrainerToCourses.Remove(CourseDB);
+            _context.SaveChanges();
+            return RedirectToAction(" "," ");
         }
 
         private void AddErrors(IdentityResult result)

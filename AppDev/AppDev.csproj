@@ -203,6 +203,7 @@
     <Compile Include="ViewModel\AssignTrainer.cs" />
     <Compile Include="ViewModel\ChangingPasswordViewModel.cs" />
     <Compile Include="ViewModel\CourseViewModel.cs" />
+    <Compile Include="ViewModel\HomeofAssign.cs" />
     <Compile Include="ViewModel\RegisterForStaffViewModel.cs" />
     <Compile Include="ViewModel\RegisterForTraineeViewModel.cs" />
     <Compile Include="ViewModel\RegisterForTrainerViewModel.cs" />
