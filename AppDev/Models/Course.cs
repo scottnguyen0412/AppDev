@@ -10,16 +10,15 @@ namespace AppDev.Models
     public class Course
     {
         [Key]
-        public int Id { get; set; }
+        public int CourseId { get; set; }
+        [Required]
+        [StringLength(50)]
         public string CourseName { get; set; }
 
         [ForeignKey("CourseCategory")]
         public int CategoryId { get; set; }
-
         //Linking object
-        public CourseCategory CourseCategory { get; set; }
-        public string Category { get; set; }       
-
+        public CourseCategory CourseCategory { get; set; }          
         [Required]
         [StringLength(255)]
         public string CourseDescription { get; set; }

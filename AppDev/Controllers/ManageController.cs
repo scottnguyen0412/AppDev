@@ -105,6 +105,38 @@ namespace AppDev.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult AssignTrainer(TeamsUsersViewModel viewModel)
+        {
+            var model = new TeamUser
+            {
+                TeamId = viewModel.TeamId,
+                UserId = viewModel.UserId
+            };
+
+            try
+            {
+                _context.TeamsUsers.Add(model);
+                _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                ModelState.AddModelError("duplicate", "User already existed in Team");
+                var role = _context.Roles
+                .SingleOrDefault(r => r.Name.Equals(Role.User));
+                var users = _context.Users
+                  .Where(m => m.Roles.Any(r => r.RoleId.Equals(role.Id)))
+                  .ToList();
+                var newViewModel = new TeamsUsersViewModel
+                {
+                    Teams = _context.Teams.ToList(),
+                    Users = users
+                };
+                return View(newViewModel);
+            }
+
+            return RedirectToAction("ShowTeam");
+        }
 
         //
         // POST: /Manage/AddPhoneNumber

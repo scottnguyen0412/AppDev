@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Collections.Generic;
+
 namespace AppDev.Controllers
 {
     [Authorize(Roles = Roles.TrainingStaff)]
@@ -62,7 +64,7 @@ namespace AppDev.Controllers
         // POST: /Account/Register through viewModel
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateTrainee(RegisterForTraineeViewModel viewModel)
+        public async Task<ActionResult> CreateTraineeAccount(RegisterForTraineeViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -369,6 +371,82 @@ namespace AppDev.Controllers
             return RedirectToAction("IndexForCourse", "TrainningStaff");
         }
 
+
+        
+        [HttpGet]
+        public ActionResult AssignTrainer()
+        {
+            var ViewModel = new AssignTrainer()
+            {
+                //Get trainer and course in DB
+                trainners = _context.trainers.ToList(),
+                courses = _context.courses.ToList()
+            };
+            return View(ViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AssignTrainer(AssignTrainer viewmodel)
+        {
+            var model = new AssignTrainerToCourse
+            {
+                TrainerId = viewmodel.TrainerId,
+                CourseId = viewmodel.CourseId
+            };
+            try
+            {
+                _context.assignTrainerToCourses.Add(model);
+                _context.SaveChanges();
+            }
+            catch(System.Exception)
+            {
+                ModelState.AddModelError("duplicate", "Trainer was added to the course");
+                var newViewModel = new AssignTrainer
+                {
+                    courses = _context.courses.ToList(),
+                    trainners = _context.trainers.ToList()
+                };
+                return View(newViewModel);
+            }
+            return RedirectToAction(" ", " ");
+        }
+
+        //For Trainee
+        [HttpPost]
+        public ActionResult AssignTrainee(AssignTrainee viewmodel)
+        {
+            var model = new AssignTraineeToCourse
+            {
+                TraineeId = viewmodel.TraineeId,
+                CourseId = viewmodel.CourseId
+            };
+            try
+            {
+                _context.assignTraineeToCourses.Add(model);
+                _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                ModelState.AddModelError("duplicate", "Trainee was added to the course");
+                var newViewModel = new AssignTrainee
+                {
+                    courses = _context.courses.ToList(),
+                    trainee = _context.trainees.ToList()
+                };
+                return View(newViewModel);
+            }
+            return RedirectToAction(" ", " ");
+        }
+
+        //Index for Trainer
+        [HttpGet]
+        public ActionResult IndexForAssignTrainer(string SearchString)
+        {
+            var trainer = _context.assignTraineeToCourses.ToList();
+
+            //groupby course and get key of course
+            IEnumerable<> 
+        }
 
         private void AddErrors(IdentityResult result)
         {

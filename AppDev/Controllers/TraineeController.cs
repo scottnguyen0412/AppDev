@@ -35,5 +35,35 @@ namespace TrainingManagement.Controllers
             }
             return View(user);
         }
+
+        [HttpGet]
+        public ActionResult ShowAllCourses()
+        {
+            var userId = User.Identity.GetUserId();
+            var courses = _context.CoursesUsers
+                .Where(u => u.UsearId.Equals(userId))
+                .Select(u => u.Course)
+                .Tolist();
+            if (courses == null)
+            { return HttpNotFound();
+            }
+            return View(courses);                                
+        }
+        [HttpGet]
+        public ActionResult ShowOtherTrainee(int Id)
+        {
+            var coursesId = Id;
+            var userId = User.Identity.GetUserId();
+            var users = _context.CoursesUsers
+                .Where(u => u.CourseId == courseId)
+                .Select(u => u.User)
+                .Tolist();
+            var role = _context.Roles
+                .SingleOrDefault(r => r.Name.Equals(role.Trainee));
+            var newusers = users
+                .Where(m => m.Roles.Any(r => r.Roles.Equals(role.Id)) && m.Id != userId)
+                .Tolist();
+            return View(Id, newusers);
+        }
     }
 }
