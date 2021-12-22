@@ -298,10 +298,10 @@
     <Content Include="Views\TrainningStaff\IndexForAssignTrainer.cshtml" />
     <Content Include="Views\TrainningStaff\AssignTrainee.cshtml" />
     <Content Include="Views\TrainningStaff\AssignTrainer.cshtml" />
+    <Content Include="Views\IndexforTrainerandTrainee\HomeOfTrainer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\IndexforTrainerandTrainee\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202112061102100_updateFirstTable.resx">

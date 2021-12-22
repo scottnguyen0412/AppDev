@@ -1,0 +1,21 @@
+﻿@model AppDev.Models.Trainner
+@{
+    ViewBag.Title = "HomeOfTrainer";
+}
+
+<h2>HomeOfTrainer</h2>
+@Html.ActionLink("Update Profile", "UpdateProfileOfTrainer", "IndexforTrainerandTrainee", new { id = @Model.Id }, new { @class = "btn btn-primary" })
+@Html.ActionLink("View Course", "ViewCourse", "IndexForTrainerAndTrainee", new { @class = "btn btn-info" })
+<br />
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Full name: @Model.FullName
+    </div>
+    <div class="list-group-item">
+        <p>Age: @Model.Age</p>
+        <p>Specialty: @Model.Specialty</p>
+        <p>Address: @Model.Address</p>
+    </div>
+</div>
+
