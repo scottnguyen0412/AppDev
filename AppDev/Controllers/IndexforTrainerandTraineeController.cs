@@ -31,5 +31,16 @@ namespace AppDev.Controllers
             var trainerInDb = _context.trainers.SingleOrDefault(t => t.TrainerId == userId);
             return View(trainerInDb);
         }
+        [HttpGet]
+        [Authorize(Roles = Roles.Trainner)]
+        public ActionResult UpdateProfileOfTrainer(int id)
+        {
+            var traineeInDb = _context.trainers.SingleOrDefault(t => t.Id == id);
+            if (traineeInDb == null)
+            {
+                return HttpNotFound();
+            }
+            return View(traineeInDb);
+        }
     }
 }
