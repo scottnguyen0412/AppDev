@@ -127,8 +127,30 @@ namespace AppDev.Controllers
             _context.SaveChanges();
             return RedirectToAction("HomeOfTrainer", "");
         }
-        
-        
-    }
+        [HttpGet]
+        [Authorize(Roles = Roles.Trainee)]
+        public ActionResult ViewCourses()
+        {
+            //get courseCategories
+            var courseCategoryInDB = _context.courseCategories.ToList();
+
+            var userId = User.Identity.GetUserId();
+            var courseInDB = _context.assignTraineeToCourses
+                                .Where(t => t.Trainee.TraineeId == userId)
+                                .Select(c => c.Course).ToList();
+            return View(courseInDB);
+
+        }
+        [HttpGet]
+        [Authorize(Roles = Roles.Trainee)]
+        public ActionResult ViewTrainerInCourse()
+        {
+            var userId = User.Identity.GetUserId();
+            var TraineeInDb = _context.assignTraineeToCourses.Where(t => t.Trainee.TraineeId == userId)
+                                                             .Select(c => c.CourseId).ToList();
+
+            return View();
+
+        }
 }
     
