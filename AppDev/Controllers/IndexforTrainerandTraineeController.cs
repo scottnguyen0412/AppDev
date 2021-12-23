@@ -87,5 +87,48 @@ namespace AppDev.Controllers
 
             return View();
         }
+        [HttpGet]
+        [Authorize(Roles = Roles.Trainee)]
+        public ActionResult HomeOfTrainee()
+        {
+            var userId = User.Identity.GetUserId();
+            var traineeInDb = _context.trainers.SingleOrDefault(t => t.TraineeId == userId);
+            return View(traineeInDb);
+        }
+        [HttpGet]
+        [Authorize(Roles = Roles.Trainee)]
+        public ActionResult UpdateProfileOfTrainee(int id)
+        {
+            var traineeInDb = _context.trainers.SingleOrDefault(t => t.Id == id);
+            if (traineeInDb == null)
+            {
+                return HttpNotFound();
+            }
+            return View(traineeInDb);
+        }
+        [HttpPost]
+        [Authorize(Roles = Roles.Trainee)]
+        public ActionResult UpdateProfileOfTrainee(Trainner trainee)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(trainee);
+            }
+            var traineeInDb = _context.trainees.SingleOrDefault(t => t.Id == trainee.Id);
+            if (traineeInDb == null)
+            {
+                return HttpNotFound();
+            }
+            traineeInDb.FullName = trainee.FullName;
+            traineeInDb.Age = trainee.Age;
+            traineeInDb.Address = trainee.Address;
+            traineeInDb.Specialty = trainee.Specialty;
+
+            _context.SaveChanges();
+            return RedirectToAction("HomeOfTrainer", "");
+        }
+        
+        
     }
 }
+    

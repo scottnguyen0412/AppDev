@@ -13,4 +13,3 @@ namespace AppDev.ViewModel
         public IEnumerable<Course> courses { get; set; }
     }
 }
-}
