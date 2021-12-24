@@ -95,41 +95,51 @@ namespace AppDev.Controllers
             var traineeInDb = _context.trainers.SingleOrDefault(t => t.TraineeId == userId);
             return View(traineeInDb);
         }
-        [HttpGet]
-        [Authorize(Roles = Roles.Trainee)]
-        public ActionResult UpdateProfileOfTrainee(int id)
-        {
-            var traineeInDb = _context.trainers.SingleOrDefault(t => t.Id == id);
-            if (traineeInDb == null)
-            {
-                return HttpNotFound();
-            }
-            return View(traineeInDb);
-        }
-        [HttpPost]
-        [Authorize(Roles = Roles.Trainee)]
-        public ActionResult UpdateProfileOfTrainee(Trainner trainee)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(trainee);
-            }
-            var traineeInDb = _context.trainees.SingleOrDefault(t => t.Id == trainee.Id);
-            if (traineeInDb == null)
-            {
-                return HttpNotFound();
-            }
-            traineeInDb.FullName = trainee.FullName;
-            traineeInDb.Age = trainee.Age;
-            traineeInDb.Address = trainee.Address;
-            traineeInDb.Specialty = trainee.Specialty;
+        //[HttpGet]
+        //[Authorize(Roles = Roles.Trainee)]
+        //public ActionResult UpdateProfileOfTrainee(int id)
+        //{
+        //    var traineeInDb = _context.trainers.SingleOrDefault(t => t.Id == id);
+        //    if (traineeInDb == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(traineeInDb);
+        //}
+        //[HttpPost]
+        //[Authorize(Roles = Roles.Trainee)]
+        //public ActionResult UpdateProfileOfTrainee(Trainner trainee)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(trainee);
+        //    }
+        //    var traineeInDb = _context.trainees.SingleOrDefault(t => t.Id == trainee.Id);
+        //    if (traineeInDb == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    traineeInDb.FullName = trainee.FullName;
+        //    traineeInDb.Age = trainee.Age;
+        //    traineeInDb.Address = trainee.Address;
+        //    traineeInDb.Specialty = trainee.Specialty;
 
-            _context.SaveChanges();
-            return RedirectToAction("HomeOfTrainer", "");
-        }
+        //    _context.SaveChanges();
+        //    return RedirectToAction("HomeOfTrainer", "");
+        //}
+
         [HttpGet]
         [Authorize(Roles = Roles.Trainee)]
-        public ActionResult ViewCourses()
+        public ActionResult HomeOfTrainee()
+        {
+            var userId = User.Identity.GetUserId();
+            var trainerInDb = _context.trainees.SingleOrDefault(t => t.TraineeId == userId);
+            return View(trainerInDb);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = Roles.Trainee)]
+        public ActionResult ViewCourseTraineeAssigned()
         {
             //get courseCategories
             var courseCategoryInDB = _context.courseCategories.ToList();
@@ -141,16 +151,14 @@ namespace AppDev.Controllers
             return View(courseInDB);
 
         }
+
         [HttpGet]
         [Authorize(Roles = Roles.Trainee)]
-        public ActionResult ViewTrainerInCourse()
+        public ActionResult ViewAllStudentInCourse(int id)
         {
             var userId = User.Identity.GetUserId();
-            var TraineeInDb = _context.assignTraineeToCourses.Where(t => t.Trainee.TraineeId == userId)
-                                                             .Select(c => c.CourseId).ToList();
-
-            return View();
-
+            var TrainerInDb = _context.assignTraineeToCourses.Where(t => t.CourseId == id).Select(c => c.Trainee).ToList();
+            return View(TrainerInDb);
         }
-}
+    }
     

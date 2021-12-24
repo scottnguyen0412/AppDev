@@ -5,9 +5,11 @@
 
 <h2>Assign Trainee To Course</h2>
 <div class="btn-group">
+    <!-- Tạo button back lui trang index-->
     @Html.ActionLink("Back to Index of Course", "IndexForCourse", null,
                         new { @class = "btn btn-primary active" })
 </div>
+<!-- Tạo button assign trainee to course-->
 @using (Html.BeginForm("AssignTraineeToCourse", "TrainningStaff", FormMethod.Post))
 {
     <div class="form-group">

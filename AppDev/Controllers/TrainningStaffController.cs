@@ -109,18 +109,6 @@ namespace AppDev.Controllers
             };
             return View(indexTrainee);
         }
-
-        [HttpGet]
-        public ActionResult UpdateForTrainee(int id)
-        {
-            var TraineeInDb = _context.trainees.SingleOrDefault(s => s.Id == id);
-            if (TraineeInDb == null)
-            {
-                return HttpNotFound();
-            }
-            return View(TraineeInDb);
-        }
-        [HttpPost]
         public ActionResult UpdateForTrainee(Trainee trainee)
         {
             if (!ModelState.IsValid)
@@ -151,9 +139,9 @@ namespace AppDev.Controllers
                 return HttpNotFound();
             }
 
-            //if find out the ID then remove out of database
+            //nếu tìm ra ID thì xóa khỏi cơ sở dữ liệu
             _context.trainees.Remove(TraineeInDb);
-            //Save again
+            //Lưu lại
             _context.SaveChanges();
             return RedirectToAction("IndexForTrainingStaff", "TrainningStaff");
         }
@@ -226,13 +214,13 @@ namespace AppDev.Controllers
             {
                 return View(courseCategory);
             }
-            //get id to post
+            //lấy id để post
             var CourseCategoryInDb = _context.courseCategories.SingleOrDefault(s => s.Id == courseCategory.Id);
             if (CourseCategoryInDb == null)
             {
                 return HttpNotFound();
             }
-            //Name in DB will same with Name of Models
+            // Tên trong DB sẽ giống với Tên của các mô hình
             CourseCategoryInDb.Name = courseCategory.Name;
             CourseCategoryInDb.Description = courseCategory.Description;
             //save again
@@ -338,7 +326,7 @@ namespace AppDev.Controllers
                     courseCategories = _context.courseCategories.ToList()
                 };
             }
-            //get data in dbcontext by id
+            //lấy dữ liệu trong dbcontext theo id
             var dataInDB = _context.courses.SingleOrDefault(d => d.Id == courseViewModel.course.Id);
             if (dataInDB == null)
             {
@@ -376,6 +364,7 @@ namespace AppDev.Controllers
         [HttpGet]
         public ActionResult AssignTrainer()
         {
+            
             var ViewModel = new AssignTrainer()
             {
                 //Get trainer and course in DB
@@ -388,8 +377,10 @@ namespace AppDev.Controllers
         [HttpPost]
         public ActionResult AssignTrainer(AssignTrainer viewmodel)
         {
+            //tạo mới cái form assign Trainer 
             var model = new AssignTrainerToCourse
             {
+                //trainer in model = trainer of viewmodel
                 TrainerId = viewmodel.TrainerId,
                 CourseId = viewmodel.CourseId
             };
@@ -443,7 +434,7 @@ namespace AppDev.Controllers
         {
             var trainer = _context.assignTraineeToCourses.ToList();
 
-            //groupby course and get key of course
+            //nhóm theo khóa học và nhận Key khóa học
             IEnumerable<HomeofAssign> viewModel = _context.assignTraineeToCourses.GroupBy(i => i.Course)
                                                            .Select(h => new HomeofAssign
                                                            {
@@ -480,31 +471,60 @@ namespace AppDev.Controllers
 
 
         //remove trainer
-        [HttpGet]
-        public ActionResult RemoveTrainer(int id)
-        {
-            var CourseDB = _context.assignTrainerToCourses.SingleOrDefault(c => c.CourseId == id);
-            if(CourseDB == null)
-            {
-                return HttpNotFound();
-            }
-            _context.assignTrainerToCourses.Remove(CourseDB);
-            _context.SaveChanges();
-            return RedirectToAction("IndexForAssignTrainer", "TrainningStaff");
-        }
+        //[HttpGet]
+        //public ActionResult RemoveTrainer(int id)
+        //{
+        //    var CourseDB = _context.assignTrainerToCourses.SingleOrDefault(c => c.CourseId == id);
+        //    if(CourseDB == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    _context.assignTrainerToCourses.Remove(CourseDB);
+        //    _context.SaveChanges();
+        //    return RedirectToAction("IndexForAssignTrainer", "TrainningStaff");
+        //}
         //remove trainee
+        //[HttpGet]
+        //public ActionResult RemoveTrainee(int id)
+        //{
+        //    var CourseDB = _context.assignTraineeToCourses.SingleOrDefault(c => c.CourseId == id);
+        //    if (CourseDB == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    _context.assignTraineeToCourses.Remove(CourseDB);
+        //    _context.SaveChanges();
+        //    return RedirectToAction("IndexForAssignTrainee", "TrainningStaff");
+        //}
+
         [HttpGet]
-        public ActionResult RemoveTrainee(int id)
+        public ActionResult RemoveTrainee(int id, string TrainerId)
         {
-            var CourseDB = _context.assignTraineeToCourses.SingleOrDefault(c => c.CourseId == id);
+            var courseInDb = _context.assignTrainerToCourses.Where(t => t.Course.Id == Id
+                                                           && t.Trainee.TraineeId == TrainerId).ToList();
             if (CourseDB == null)
             {
                 return HttpNotFound();
             }
-            _context.assignTraineeToCourses.Remove(CourseDB);
+            _context.courses.RemoveRange(CourseDB);
             _context.SaveChanges();
             return RedirectToAction("IndexForAssignTrainee", "TrainningStaff");
         }
+
+        //[HttpGet]
+        //public ActionResult RemoveTrainer(int id, string TraineeId)
+        //{
+        //    var courseInDb = _context.assignTrainerToCourses.Where(t => t.Course.Id == Id
+        //                                                   && t.Trainner.TrainerId == TrainerId).ToList();
+        //    if (CourseDB == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    _context.courses.RemoveRange(CourseDB);
+        //    _context.SaveChanges();
+        //    return RedirectToAction("IndexForAssignTrainer", "TrainningStaff");
+        //}
+
 
         private void AddErrors(IdentityResult result)
         {
